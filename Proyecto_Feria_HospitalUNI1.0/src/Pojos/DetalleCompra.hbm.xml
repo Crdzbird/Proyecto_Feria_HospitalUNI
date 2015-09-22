@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.DetalleCompra" table="Detalle_Compra" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idDetalleCompra" type="java.lang.Integer">
+            <column name="ID_Detalle_Compra" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="compra" class="Pojos.Compra" fetch="select">
+            <column name="ID_Compra" not-null="true" />
+        </many-to-one>
+        <many-to-one name="producto" class="Pojos.Producto" fetch="select">
+            <column name="ID_Producto" not-null="true" />
+        </many-to-one>
+        <property name="fechaVencimiento" type="date">
+            <column name="Fecha_Vencimiento" length="10" not-null="true" />
+        </property>
+        <property name="unidadesCompradas" type="int">
+            <column name="Unidades_Compradas" not-null="true" />
+        </property>
+        <property name="costoCompraUnit" type="big_decimal">
+            <column name="Costo_Compra_Unit" precision="20" not-null="true" />
+        </property>
+        <property name="descuento" type="float">
+            <column name="Descuento" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="modoAdquisicion" type="string">
+            <column name="Modo_Adquisicion" length="20" not-null="true" />
+        </property>
+        <property name="unidsDisponibles" type="int">
+            <column name="Unids_Disponibles" not-null="true" />
+        </property>
+        <set name="inventarioGenerals" table="Inventario_General" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Detalle_Compra" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.InventarioGeneral" />
+        </set>
+        <set name="devolucionCompras" table="Devolucion_Compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Detalle_Compra" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.DevolucionCompra" />
+        </set>
+    </class>
+</hibernate-mapping>

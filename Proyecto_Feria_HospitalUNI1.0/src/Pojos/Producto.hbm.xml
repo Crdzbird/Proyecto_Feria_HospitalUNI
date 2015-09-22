@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Producto" table="Producto" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idProducto" type="java.lang.Integer">
+            <column name="ID_Producto" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="proveedor" class="Pojos.Proveedor" fetch="select">
+            <column name="ID_Proveedor" not-null="true" />
+        </many-to-one>
+        <property name="nombreProducto" type="string">
+            <column name="Nombre_Producto" length="50" not-null="true" />
+        </property>
+        <property name="codigoProducto" type="string">
+            <column name="Codigo_Producto" length="50" not-null="true" />
+        </property>
+        <property name="categoria" type="string">
+            <column name="Categoria" length="60" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="Descripcion" length="100" not-null="true" />
+        </property>
+        <property name="controlado" type="string">
+            <column name="Controlado" length="2" not-null="true" />
+        </property>
+        <property name="unidadesDisponibles" type="int">
+            <column name="Unidades_Disponibles" not-null="true" />
+        </property>
+        <property name="precioVentaUnit" type="big_decimal">
+            <column name="Precio_Venta_Unit" precision="20" not-null="true" />
+        </property>
+        <property name="stockMin" type="int">
+            <column name="Stock_Min" not-null="true" />
+        </property>
+        <property name="imagenProducto" type="binary">
+            <column name="Imagen_Producto" />
+        </property>
+        <property name="margenGanancia" type="float">
+            <column name="Margen_Ganancia" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="estadoProducto" type="boolean">
+            <column name="Estado_Producto" not-null="true" />
+        </property>
+        <property name="desactivadoDirectamente" type="string">
+            <column name="Desactivado_Directamente" length="5" not-null="true" />
+        </property>
+        <set name="detalleCompras" table="Detalle_Compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Producto" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.DetalleCompra" />
+        </set>
+        <set name="inventarioGenerals" table="Inventario_General" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Producto" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.InventarioGeneral" />
+        </set>
+        <set name="detalleVentas" table="Detalle_Venta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Producto" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.DetalleVenta" />
+        </set>
+    </class>
+</hibernate-mapping>

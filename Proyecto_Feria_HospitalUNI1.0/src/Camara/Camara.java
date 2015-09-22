@@ -5,7 +5,6 @@
  */
 package Camara;
 
-import Medico.FrameMedicos;
 import ValidacionImagenes.procesamientoImagenes;
 import com.googlecode.javacv.FrameGrabber;
 import com.googlecode.javacv.OpenCVFrameGrabber;
@@ -40,12 +39,7 @@ public class Camara extends javax.swing.JInternalFrame {
         initComponents();
         this.CargarCamara();
     }
-    FrameMedicos frMedicos;
-    public Camara(FrameMedicos frMedicos) {
-        initComponents();
-        this.CargarCamara();
-        this.frMedicos = frMedicos;
-    }
+    
 //Cajero cajerofr;
 //
 //    public Camara(Cajero cajerofr) {
@@ -53,27 +47,7 @@ public class Camara extends javax.swing.JInternalFrame {
 //        this.CargarCamara();
 //        this.cajerofr = cajerofr;
 //    }
-    public void GuardarMetodoGrabber() {
-        try {
 
-            Icon icono = lblPic.getIcon();
-            procesamientoImagenes redimImagen = new procesamientoImagenes();
-
-            if (this.frMedicos != null) {
-                icono = redimImagen.imageToIcon(redimImagen.iconToBufferedImage(icono).getScaledInstance(frMedicos.lblImagen.getWidth(), frMedicos.lblImagen.getHeight(), 0));
-                frMedicos.bufferedMedicoImagen = img.getBufferedImage();
-                frMedicos.lblImagen.setIcon(icono);
-                frMedicos.lblImagen.setText(null);
-            }
-            this.CerrarCamara();
-            this.dispose();
-
-        } catch (Exception e) {
-            System.out.println("" + e.getMessage());
-            System.out.println("+ " + e.getCause());
-            JOptionPane.showMessageDialog(null, "Error al guardar la foto", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
      
     
     public static BufferedImage resize(BufferedImage bufferedImage, int newW, int newH) {
@@ -186,8 +160,7 @@ public class Camara extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       if(frMedicos !=null){
-        GuardarMetodoGrabber();}
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened

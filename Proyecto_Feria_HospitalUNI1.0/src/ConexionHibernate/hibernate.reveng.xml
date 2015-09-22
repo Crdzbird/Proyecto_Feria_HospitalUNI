@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="BaseDatosHospitalUNI"/>
+  <table-filter match-name="Detalle_Venta"/>
+  <table-filter match-name="Compra"/>
+  <table-filter match-name="Enfermera"/>
+  <table-filter match-name="Cargo"/>
+  <table-filter match-name="Consulta"/>
+  <table-filter match-name="Nomina"/>
+  <table-filter match-name="Paciente"/>
+  <table-filter match-name="Proveedor"/>
+  <table-filter match-name="Devolucion_Compra"/>
+  <table-filter match-name="Cita"/>
+  <table-filter match-name="Prestamo"/>
+  <table-filter match-name="Usuario"/>
+  <table-filter match-name="Medico"/>
+  <table-filter match-name="Distrito"/>
+  <table-filter match-name="Venta"/>
+  <table-filter match-name="Empleado_Laboratorio"/>
+  <table-filter match-name="Cajero"/>
+  <table-filter match-name="Enfermedades"/>
+  <table-filter match-name="Especialidad"/>
+  <table-filter match-name="Detalle_Compra"/>
+  <table-filter match-name="Municipio"/>
+  <table-filter match-name="PacienteInterno"/>
+  <table-filter match-name="Tipo_Cambio"/>
+  <table-filter match-name="Detalle_Consulta"/>
+  <table-filter match-name="Habitaciones"/>
+  <table-filter match-name="Producto"/>
+  <table-filter match-name="Diagnostico"/>
+  <table-filter match-name="Inventario_General"/>
+  <table-filter match-name="Departamento"/>
+  <table-filter match-name="ExpedientePaciente"/>
+  <table-filter match-name="Area_Trabajo"/>
+  <table-filter match-name="HrsExtras"/>
+  <table-filter match-name="Pais"/>
+  <table-filter match-name="FacturaConsulta"/>
+  <table-filter match-name="DiasMedico"/>
+  <table-filter match-name="Laboratorio"/>
+</hibernate-reverse-engineering>

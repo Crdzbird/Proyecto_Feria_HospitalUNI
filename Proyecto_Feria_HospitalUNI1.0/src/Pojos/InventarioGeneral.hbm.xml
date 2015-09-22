@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.InventarioGeneral" table="Inventario_General" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idInventarioGeneral" type="java.lang.Integer">
+            <column name="ID_Inventario_General" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="detalleCompra" class="Pojos.DetalleCompra" fetch="select">
+            <column name="ID_Detalle_Compra" not-null="true" />
+        </many-to-one>
+        <many-to-one name="empleadoLaboratorio" class="Pojos.EmpleadoLaboratorio" fetch="select">
+            <column name="ID_EmpleadoLaboratorio" not-null="true" />
+        </many-to-one>
+        <many-to-one name="producto" class="Pojos.Producto" fetch="select">
+            <column name="ID_Producto" not-null="true" />
+        </many-to-one>
+        <property name="fechaInventario" type="timestamp">
+            <column name="Fecha_Inventario" length="19" not-null="true" />
+        </property>
+        <property name="unidadesInactivas" type="int">
+            <column name="Unidades_Inactivas" not-null="true" />
+        </property>
+        <property name="costoUnit" type="big_decimal">
+            <column name="Costo_Unit" precision="20" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

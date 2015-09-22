@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Habitaciones" table="Habitaciones" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idHabitacion" type="java.lang.Integer">
+            <column name="id_habitacion" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="areaTrabajo" class="Pojos.AreaTrabajo" fetch="select">
+            <column name="ID_Area" not-null="true" />
+        </many-to-one>
+        <property name="numeroCamas" type="int">
+            <column name="Numero_Camas" not-null="true" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="Estado" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

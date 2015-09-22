@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/BaseDatosHospitalUNI?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">lacb2208</property>
+    <mapping resource="Pojos/ExpedientePaciente.hbm.xml"/>
+    <mapping resource="Pojos/AreaTrabajo.hbm.xml"/>
+    <mapping resource="Pojos/Pais.hbm.xml"/>
+    <mapping resource="Pojos/Prestamo.hbm.xml"/>
+    <mapping resource="Pojos/FacturaConsulta.hbm.xml"/>
+    <mapping resource="Pojos/Compra.hbm.xml"/>
+    <mapping resource="Pojos/Enfermera.hbm.xml"/>
+    <mapping resource="Pojos/Cita.hbm.xml"/>
+    <mapping resource="Pojos/Nomina.hbm.xml"/>
+    <mapping resource="Pojos/Diagnostico.hbm.xml"/>
+    <mapping resource="Pojos/EmpleadoLaboratorio.hbm.xml"/>
+    <mapping resource="Pojos/Laboratorio.hbm.xml"/>
+    <mapping resource="Pojos/Paciente.hbm.xml"/>
+    <mapping resource="Pojos/Consulta.hbm.xml"/>
+    <mapping resource="Pojos/InventarioGeneral.hbm.xml"/>
+    <mapping resource="Pojos/Departamento.hbm.xml"/>
+    <mapping resource="Pojos/DetalleVenta.hbm.xml"/>
+    <mapping resource="Pojos/DevolucionCompra.hbm.xml"/>
+    <mapping resource="Pojos/Usuario.hbm.xml"/>
+    <mapping resource="Pojos/DetalleCompra.hbm.xml"/>
+    <mapping resource="Pojos/Proveedor.hbm.xml"/>
+    <mapping resource="Pojos/Venta.hbm.xml"/>
+    <mapping resource="Pojos/Distrito.hbm.xml"/>
+    <mapping resource="Pojos/TipoCambio.hbm.xml"/>
+    <mapping resource="Pojos/Cargo.hbm.xml"/>
+    <mapping resource="Pojos/Habitaciones.hbm.xml"/>
+    <mapping resource="Pojos/DetalleConsulta.hbm.xml"/>
+    <mapping resource="Pojos/DiasMedico.hbm.xml"/>
+    <mapping resource="Pojos/Producto.hbm.xml"/>
+    <mapping resource="Pojos/Cajero.hbm.xml"/>
+    <mapping resource="Pojos/PacienteInterno.hbm.xml"/>
+    <mapping resource="Pojos/Municipio.hbm.xml"/>
+    <mapping resource="Pojos/HrsExtras.hbm.xml"/>
+    <mapping resource="Pojos/Enfermedades.hbm.xml"/>
+    <mapping resource="Pojos/Medico.hbm.xml"/>
+    <mapping resource="Pojos/Especialidad.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

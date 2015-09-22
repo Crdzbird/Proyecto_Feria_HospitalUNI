@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.EmpleadoLaboratorio" table="Empleado_Laboratorio" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idEmpleado" type="java.lang.Integer">
+            <column name="ID_Empleado" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="areaTrabajo" class="Pojos.AreaTrabajo" fetch="select">
+            <column name="ID_Area" not-null="true" />
+        </many-to-one>
+        <many-to-one name="cargo" class="Pojos.Cargo" fetch="select">
+            <column name="ID_Cargo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="laboratorio" class="Pojos.Laboratorio" fetch="select">
+            <column name="ID_Laboratorio" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuario" class="Pojos.Usuario" fetch="select">
+            <column name="ID_UsuarioLaboratorio" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="primerNombreEmpleado" type="string">
+            <column name="PrimerNombre_Empleado" length="50" not-null="true" />
+        </property>
+        <property name="segundoNombreEmpleado" type="string">
+            <column name="SegundoNombre_Empleado" length="50" not-null="true" />
+        </property>
+        <property name="primerApellidoEmpleado" type="string">
+            <column name="PrimerApellido_Empleado" length="50" not-null="true" />
+        </property>
+        <property name="segundoApellidoEmpleado" type="string">
+            <column name="SegundoApellido_Empleado" length="50" not-null="true" />
+        </property>
+        <property name="fechaContratacion" type="date">
+            <column name="Fecha_Contratacion" length="10" not-null="true" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="Estado" not-null="true" />
+        </property>
+        <property name="telefonoEmpleado" type="string">
+            <column name="Telefono_Empleado" length="9" not-null="true" />
+        </property>
+        <property name="cedulaEmpleado" type="string">
+            <column name="Cedula_Empleado" length="16" not-null="true" />
+        </property>
+        <property name="correoEmpleado" type="string">
+            <column name="Correo_Empleado" length="50" not-null="true" />
+        </property>
+        <property name="direccionEmpleado" type="string">
+            <column name="Direccion_Empleado" length="200" not-null="true" />
+        </property>
+        <property name="fotografiaEmpleado" type="binary">
+            <column name="Fotografia_Empleado" />
+        </property>
+        <property name="sexoEmpleado" type="string">
+            <column name="Sexo_Empleado" length="25" not-null="true" />
+        </property>
+        <set name="compras" table="Compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_EmpleadoLaboratorio" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Compra" />
+        </set>
+        <set name="prestamos" table="Prestamo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_TrabajadorLaboratorio" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Prestamo" />
+        </set>
+        <set name="inventarioGenerals" table="Inventario_General" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_EmpleadoLaboratorio" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.InventarioGeneral" />
+        </set>
+        <set name="devolucionCompras" table="Devolucion_Compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Empleado" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.DevolucionCompra" />
+        </set>
+        <set name="hrsExtrases" table="HrsExtras" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_TrabajadorLaboratorio" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.HrsExtras" />
+        </set>
+        <set name="nominas" table="Nomina" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_TrabajadorLaboratorio" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Nomina" />
+        </set>
+        <set name="ventas" table="Venta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Empleado" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Venta" />
+        </set>
+    </class>
+</hibernate-mapping>

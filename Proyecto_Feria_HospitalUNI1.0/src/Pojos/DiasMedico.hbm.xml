@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.DiasMedico" table="DiasMedico" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idDiaMedico" type="java.lang.Integer">
+            <column name="id_diaMedico" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="medico" class="Pojos.Medico" fetch="select">
+            <column name="id_Medico" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="lunes" type="boolean">
+            <column name="Lunes" not-null="true" />
+        </property>
+        <property name="horaEntradaLunes" type="string">
+            <column name="hora_entradaLUNES" length="25" not-null="true" />
+        </property>
+        <property name="horaSalidaLunes" type="string">
+            <column name="hora_salidaLUNES" length="25" not-null="true" />
+        </property>
+        <property name="martes" type="boolean">
+            <column name="Martes" not-null="true" />
+        </property>
+        <property name="horaEntradaMartes" type="string">
+            <column name="hora_entradaMARTES" length="25" not-null="true" />
+        </property>
+        <property name="horaSalidaMartes" type="string">
+            <column name="hora_salidaMARTES" length="25" not-null="true" />
+        </property>
+        <property name="miercoles" type="boolean">
+            <column name="Miercoles" not-null="true" />
+        </property>
+        <property name="horaEntradaMiercoles" type="string">
+            <column name="hora_entradaMIERCOLES" length="25" not-null="true" />
+        </property>
+        <property name="horaSalidaMiercoles" type="string">
+            <column name="hora_salidaMIERCOLES" length="25" not-null="true" />
+        </property>
+        <property name="jueves" type="boolean">
+            <column name="Jueves" not-null="true" />
+        </property>
+        <property name="horaEntradaJueves" type="string">
+            <column name="hora_entradaJUEVES" length="25" not-null="true" />
+        </property>
+        <property name="horaSalidaJueves" type="string">
+            <column name="hora_salidaJUEVES" length="25" not-null="true" />
+        </property>
+        <property name="viernes" type="boolean">
+            <column name="Viernes" not-null="true" />
+        </property>
+        <property name="horaEntradaViernes" type="string">
+            <column name="hora_entradaVIERNES" length="25" not-null="true" />
+        </property>
+        <property name="horaSalidaViernes" type="string">
+            <column name="hora_salidaVIERNES" length="25" not-null="true" />
+        </property>
+        <property name="sabado" type="boolean">
+            <column name="Sabado" not-null="true" />
+        </property>
+        <property name="horaEntradaSabado" type="string">
+            <column name="hora_entradaSABADO" length="25" not-null="true" />
+        </property>
+        <property name="horaSalidaSabado" type="string">
+            <column name="hora_salidaSABADO" length="25" not-null="true" />
+        </property>
+        <property name="domingo" type="boolean">
+            <column name="Domingo" not-null="true" />
+        </property>
+        <property name="horaEntradaDomingo" type="string">
+            <column name="hora_entradaDOMINGO" length="25" not-null="true" />
+        </property>
+        <property name="horaSalidaDomingo" type="string">
+            <column name="hora_salidaDOMINGO" length="25" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

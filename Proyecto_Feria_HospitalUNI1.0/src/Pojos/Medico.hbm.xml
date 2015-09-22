@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Medico" table="Medico" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idMedico" type="java.lang.Integer">
+            <column name="id_medico" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="areaTrabajo" class="Pojos.AreaTrabajo" fetch="select">
+            <column name="ID_Area" not-null="true" />
+        </many-to-one>
+        <many-to-one name="cargo" class="Pojos.Cargo" fetch="select">
+            <column name="ID_Cargo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuario" class="Pojos.Usuario" fetch="select">
+            <column name="id_medicoUsuario" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="primernombre" type="string">
+            <column name="primernombre" length="50" not-null="true" />
+        </property>
+        <property name="segundonombre" type="string">
+            <column name="segundonombre" length="50" />
+        </property>
+        <property name="primerapellido" type="string">
+            <column name="primerapellido" length="50" not-null="true" />
+        </property>
+        <property name="segundoapellido" type="string">
+            <column name="segundoapellido" length="50" />
+        </property>
+        <property name="cedula" type="string">
+            <column name="cedula" length="18" not-null="true" unique="true" />
+        </property>
+        <property name="sexoMedico" type="string">
+            <column name="sexo_Medico" length="25" not-null="true" />
+        </property>
+        <property name="fechaContratacion" type="date">
+            <column name="Fecha_Contratacion" length="10" not-null="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="Direccion" length="200" not-null="true" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="Estado" not-null="true" />
+        </property>
+        <property name="foto" type="binary">
+            <column name="foto" />
+        </property>
+        <set name="prestamos" table="Prestamo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Medico" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Prestamo" />
+        </set>
+        <set name="nominas" table="Nomina" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Medico" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Nomina" />
+        </set>
+        <set name="especialidads" table="Especialidad" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_medico" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Especialidad" />
+        </set>
+        <set name="diasMedicos" table="DiasMedico" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_Medico" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="Pojos.DiasMedico" />
+        </set>
+        <set name="citas" table="Cita" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_medico" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Cita" />
+        </set>
+        <set name="hrsExtrases" table="HrsExtras" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Medico" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.HrsExtras" />
+        </set>
+    </class>
+</hibernate-mapping>

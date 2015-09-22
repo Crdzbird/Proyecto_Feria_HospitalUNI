@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.ExpedientePaciente" table="ExpedientePaciente" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idHistorialPaciente" type="java.lang.Integer">
+            <column name="id_historialPaciente" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cita" class="Pojos.Cita" fetch="select">
+            <column name="id_citasRealizadas" />
+        </many-to-one>
+        <many-to-one name="enfermedades" class="Pojos.Enfermedades" fetch="select">
+            <column name="id_enfermedades" />
+        </many-to-one>
+        <many-to-one name="paciente" class="Pojos.Paciente" fetch="select">
+            <column name="id_paciente" not-null="true" unique="true" />
+        </many-to-one>
+        <many-to-one name="pacienteInterno" class="Pojos.PacienteInterno" fetch="select">
+            <column name="id_pacienteinterno" unique="true" />
+        </many-to-one>
+        <property name="idExamenesRealizados" type="java.lang.Integer">
+            <column name="id_examenesRealizados" />
+        </property>
+        <property name="idConsultasRealizadas" type="java.lang.Integer">
+            <column name="id_consultasRealizadas" />
+        </property>
+        <property name="fechaRegistro" type="timestamp">
+            <column name="fecha_registro" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

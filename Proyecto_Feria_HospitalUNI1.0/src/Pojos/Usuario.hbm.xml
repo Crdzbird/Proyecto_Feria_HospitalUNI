@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Usuario" table="Usuario" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idUsuario" type="java.lang.Integer">
+            <column name="ID_Usuario" />
+            <generator class="identity" />
+        </id>
+        <property name="privilegio" type="string">
+            <column name="Privilegio" length="20" not-null="true" />
+        </property>
+        <property name="nombreUsuario" type="string">
+            <column name="Nombre_Usuario" length="500" not-null="true" unique="true" />
+        </property>
+        <property name="correoUsuario" type="string">
+            <column name="Correo_Usuario" length="500" />
+        </property>
+        <property name="contrasena" type="string">
+            <column name="Contrasena" length="500" not-null="true" />
+        </property>
+        <property name="estadoUsuario" type="boolean">
+            <column name="Estado_Usuario" not-null="true" />
+        </property>
+        <set name="enfermeras" table="Enfermera" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_enfermeraUsuario" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="Pojos.Enfermera" />
+        </set>
+        <set name="pacientes" table="Paciente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_pacienteUsuario" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="Pojos.Paciente" />
+        </set>
+        <set name="empleadoLaboratorios" table="Empleado_Laboratorio" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_UsuarioLaboratorio" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="Pojos.EmpleadoLaboratorio" />
+        </set>
+        <set name="medicos" table="Medico" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_medicoUsuario" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="Pojos.Medico" />
+        </set>
+        <set name="cajeros" table="Cajero" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_UsuarioCajero" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="Pojos.Cajero" />
+        </set>
+    </class>
+</hibernate-mapping>

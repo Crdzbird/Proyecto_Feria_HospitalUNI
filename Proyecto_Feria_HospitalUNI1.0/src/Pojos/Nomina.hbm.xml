@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Nomina" table="Nomina" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idNomina" type="java.lang.Integer">
+            <column name="ID_Nomina" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cajero" class="Pojos.Cajero" fetch="select">
+            <column name="ID_Cajero" not-null="true" />
+        </many-to-one>
+        <many-to-one name="empleadoLaboratorio" class="Pojos.EmpleadoLaboratorio" fetch="select">
+            <column name="ID_TrabajadorLaboratorio" not-null="true" />
+        </many-to-one>
+        <many-to-one name="medico" class="Pojos.Medico" fetch="select">
+            <column name="ID_Medico" not-null="true" />
+        </many-to-one>
+        <property name="noNomina" type="int">
+            <column name="No_Nomina" not-null="true" />
+        </property>
+        <property name="fechaNomina" type="date">
+            <column name="FechaNomina" length="10" not-null="true" />
+        </property>
+        <property name="salarioBasico" type="big_decimal">
+            <column name="SalarioBasico" precision="20" not-null="true" />
+        </property>
+        <property name="cantidadHrsExtras" type="int">
+            <column name="Cantidad_HrsExtras" not-null="true" />
+        </property>
+        <property name="pagoHrsExtras" type="big_decimal">
+            <column name="Pago_HrsExtras" precision="20" not-null="true" />
+        </property>
+        <property name="aniosAntiguedad" type="int">
+            <column name="AniosAntiguedad" not-null="true" />
+        </property>
+        <property name="antiguedad" type="big_decimal">
+            <column name="Antiguedad" precision="20" not-null="true" />
+        </property>
+        <property name="totalIngresos" type="big_decimal">
+            <column name="TotalIngresos" precision="20" not-null="true" />
+        </property>
+        <property name="inssL" type="big_decimal">
+            <column name="INSS_L" precision="20" not-null="true" />
+        </property>
+        <property name="ir" type="big_decimal">
+            <column name="IR" precision="20" not-null="true" />
+        </property>
+        <property name="totalDeducciones" type="big_decimal">
+            <column name="TotalDeducciones" precision="20" not-null="true" />
+        </property>
+        <property name="salarioNeto" type="big_decimal">
+            <column name="SalarioNeto" precision="20" not-null="true" />
+        </property>
+        <property name="otrasDeducciones" type="big_decimal">
+            <column name="OtrasDeducciones" precision="20" not-null="true" />
+        </property>
+        <property name="salarioPagar" type="big_decimal">
+            <column name="SalarioPagar" precision="20" not-null="true" />
+        </property>
+        <property name="inssP" type="big_decimal">
+            <column name="INSS_P" precision="20" not-null="true" />
+        </property>
+        <property name="inatec" type="big_decimal">
+            <column name="INATEC" precision="20" not-null="true" />
+        </property>
+        <property name="vacaciones" type="big_decimal">
+            <column name="Vacaciones" precision="20" not-null="true" />
+        </property>
+        <property name="treceavoMes" type="big_decimal">
+            <column name="TreceavoMes" precision="20" not-null="true" />
+        </property>
+        <property name="estadoNomina" type="string">
+            <column name="Estado_Nomina" length="12" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

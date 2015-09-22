@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Cargo" table="Cargo" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idCargo" type="java.lang.Integer">
+            <column name="ID_Cargo" />
+            <generator class="identity" />
+        </id>
+        <property name="fechaCreacion" type="date">
+            <column name="Fecha_Creacion" length="10" not-null="true" />
+        </property>
+        <property name="nombreCargo" type="string">
+            <column name="NombreCargo" length="50" not-null="true" />
+        </property>
+        <property name="salarioMin" type="big_decimal">
+            <column name="SalarioMin" precision="20" not-null="true" />
+        </property>
+        <set name="medicos" table="Medico" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Cargo" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Medico" />
+        </set>
+        <set name="cajeros" table="Cajero" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Cargo" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Cajero" />
+        </set>
+        <set name="enfermeras" table="Enfermera" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Cargo" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Enfermera" />
+        </set>
+        <set name="empleadoLaboratorios" table="Empleado_Laboratorio" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Cargo" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.EmpleadoLaboratorio" />
+        </set>
+    </class>
+</hibernate-mapping>

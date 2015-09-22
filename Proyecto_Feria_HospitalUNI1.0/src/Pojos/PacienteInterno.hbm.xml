@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.PacienteInterno" table="PacienteInterno" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idPaciente" type="java.lang.Integer">
+            <column name="id_paciente" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="enfermera" class="Pojos.Enfermera" fetch="select">
+            <column name="id_enfermeraAsignada" not-null="true" />
+        </many-to-one>
+        <many-to-one name="pais" class="Pojos.Pais" fetch="select">
+            <column name="id_pais" not-null="true" />
+        </many-to-one>
+        <property name="fechaIngreso" type="date">
+            <column name="fecha_ingreso" length="10" not-null="true" />
+        </property>
+        <property name="fechaSalida" type="date">
+            <column name="fecha_salida" length="10" not-null="true" />
+        </property>
+        <property name="cedula" type="string">
+            <column name="cedula" length="20" />
+        </property>
+        <property name="primerNombre" type="string">
+            <column name="primerNombre" length="50" not-null="true" />
+        </property>
+        <property name="segundoNombre" type="string">
+            <column name="segundoNombre" length="50" not-null="true" />
+        </property>
+        <property name="primerApellido" type="string">
+            <column name="primerApellido" length="50" not-null="true" />
+        </property>
+        <property name="segundoApellido" type="string">
+            <column name="segundoApellido" length="50" not-null="true" />
+        </property>
+        <property name="convencional" type="string">
+            <column name="convencional" length="15" not-null="true" />
+        </property>
+        <property name="celular" type="string">
+            <column name="celular" length="15" not-null="true" />
+        </property>
+        <property name="edad" type="int">
+            <column name="edad" not-null="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="500" not-null="true" />
+        </property>
+        <property name="menorEdad" type="java.lang.Boolean">
+            <column name="menorEdad" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="estado" not-null="true" />
+        </property>
+        <set name="expedientePacientes" table="ExpedientePaciente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_pacienteinterno" unique="true" />
+            </key>
+            <one-to-many class="Pojos.ExpedientePaciente" />
+        </set>
+    </class>
+</hibernate-mapping>

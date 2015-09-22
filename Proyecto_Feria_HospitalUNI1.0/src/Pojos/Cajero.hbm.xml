@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Cajero" table="Cajero" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idCajero" type="java.lang.Integer">
+            <column name="ID_cajero" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="areaTrabajo" class="Pojos.AreaTrabajo" fetch="select">
+            <column name="ID_Area" not-null="true" />
+        </many-to-one>
+        <many-to-one name="cargo" class="Pojos.Cargo" fetch="select">
+            <column name="ID_Cargo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuario" class="Pojos.Usuario" fetch="select">
+            <column name="ID_UsuarioCajero" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="cedulaCajero" type="string">
+            <column name="Cedula_Cajero" length="50" not-null="true" />
+        </property>
+        <property name="sexoCajero" type="string">
+            <column name="Sexo_Cajero" length="10" not-null="true" />
+        </property>
+        <property name="salario" type="big_decimal">
+            <column name="Salario" precision="20" not-null="true" />
+        </property>
+        <property name="fechaContratacion" type="date">
+            <column name="Fecha_Contratacion" length="10" not-null="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="Direccion" length="200" not-null="true" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="Estado" not-null="true" />
+        </property>
+        <property name="foto" type="binary">
+            <column name="foto" />
+        </property>
+        <set name="prestamos" table="Prestamo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Cajero" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Prestamo" />
+        </set>
+        <set name="hrsExtrases" table="HrsExtras" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Cajero" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.HrsExtras" />
+        </set>
+        <set name="facturaConsultas" table="FacturaConsulta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cajero" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.FacturaConsulta" />
+        </set>
+        <set name="nominas" table="Nomina" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Cajero" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Nomina" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -5,7 +5,7 @@
  */
 package Captcha;
 
-import Conexion.HibernateUtil;
+import ConexionHibernate.NewHibernateUtil;
 import Interfaces.MDI;
 import ValidacionImagenes.procesamientoImagenes;
 import java.awt.event.KeyEvent;
@@ -20,18 +20,15 @@ import org.hibernate.SessionFactory;
 public class IngresarCaptcha extends javax.swing.JFrame {
 
     private static String contenidoCaptcha;
-
-    private static SessionFactory sf;
-    private byte[] arregloImagenCaptcha;
+    SessionFactory sf;
     Captcha captcha = new Captcha();
     procesamientoImagenes pi = new procesamientoImagenes();
     BufferedImage bi;
 
-    public IngresarCaptcha(SessionFactory sf) {
+    public IngresarCaptcha() {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
-        IngresarCaptcha.sf = sf;
         GenerarCaptcha();
     }
 
@@ -111,7 +108,7 @@ public class IngresarCaptcha extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (txtMensaje.getText().equals(contenidoCaptcha)) {
-                sf = HibernateUtil.conexion("root", "lacb2208", "3306", "localhost");
+                sf = NewHibernateUtil.conexion("root", "lacb2208", "3306", "localhost");
                 if (sf != null) {
                     //JOptionPane.showMessageDialog(this, "Captcha Valido", "Informacion del Sistema", JOptionPane.INFORMATION_MESSAGE);
                     new MDI(sf).setVisible(true);
@@ -139,7 +136,7 @@ public class IngresarCaptcha extends javax.swing.JFrame {
         int height = lblCaptcha.getHeight();
         int width = lblCaptcha.getWidth();
         lblCaptcha.setIcon((pi.imageToIcon(pi.imageToBufferedImage(bi).getScaledInstance(width, height, 0))));
-        lblCaptcha.setText(null);
+        txtMensaje.setText(null);
     }
 
     public static void main(String args[]) {
@@ -167,10 +164,8 @@ public class IngresarCaptcha extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new IngresarCaptcha(sf).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new IngresarCaptcha().setVisible(true);
         });
     }
 

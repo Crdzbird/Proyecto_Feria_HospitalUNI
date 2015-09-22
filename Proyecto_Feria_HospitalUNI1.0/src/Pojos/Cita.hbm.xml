@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Cita" table="Cita" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idCita" type="java.lang.Integer">
+            <column name="id_cita" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="medico" class="Pojos.Medico" fetch="select">
+            <column name="id_medico" not-null="true" />
+        </many-to-one>
+        <many-to-one name="paciente" class="Pojos.Paciente" fetch="select">
+            <column name="id_paciente" not-null="true" />
+        </many-to-one>
+        <property name="fecha" type="date">
+            <column name="fecha" length="10" not-null="true" />
+        </property>
+        <property name="hora" type="string">
+            <column name="hora" length="25" not-null="true" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="estado" not-null="true" />
+        </property>
+        <set name="expedientePacientes" table="ExpedientePaciente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_citasRealizadas" />
+            </key>
+            <one-to-many class="Pojos.ExpedientePaciente" />
+        </set>
+        <set name="consultas" table="Consulta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cita" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="Pojos.Consulta" />
+        </set>
+    </class>
+</hibernate-mapping>

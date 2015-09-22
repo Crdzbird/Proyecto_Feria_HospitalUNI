@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Venta" table="Venta" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idVenta" type="java.lang.Integer">
+            <column name="ID_Venta" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="empleadoLaboratorio" class="Pojos.EmpleadoLaboratorio" fetch="select">
+            <column name="ID_Empleado" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoCambio" class="Pojos.TipoCambio" fetch="select">
+            <column name="ID_Tipo_Cambio" not-null="true" />
+        </many-to-one>
+        <property name="cliente" type="string">
+            <column name="Cliente" length="50" not-null="true" />
+        </property>
+        <property name="fechaVenta" type="timestamp">
+            <column name="Fecha_Venta" length="19" not-null="true" />
+        </property>
+        <property name="subTotalVendido" type="big_decimal">
+            <column name="SubTotal_Vendido" precision="20" not-null="true" />
+        </property>
+        <property name="descuento" type="float">
+            <column name="Descuento" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="tipoMoneda" type="string">
+            <column name="Tipo_Moneda" length="10" not-null="true" />
+        </property>
+        <property name="modoVenta" type="string">
+            <column name="Modo_Venta" length="10" not-null="true" />
+        </property>
+        <set name="detalleVentas" table="Detalle_Venta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Venta" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.DetalleVenta" />
+        </set>
+    </class>
+</hibernate-mapping>

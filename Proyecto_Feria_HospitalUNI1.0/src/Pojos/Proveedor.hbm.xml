@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Proveedor" table="Proveedor" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idProveedor" type="java.lang.Integer">
+            <column name="ID_Proveedor" />
+            <generator class="identity" />
+        </id>
+        <property name="tipoProveedor" type="string">
+            <column name="Tipo_Proveedor" length="15" not-null="true" />
+        </property>
+        <property name="nombreProveedor" type="string">
+            <column name="Nombre_Proveedor" length="50" not-null="true" />
+        </property>
+        <property name="noRuc" type="string">
+            <column name="No_RUC" length="15" not-null="true" />
+        </property>
+        <property name="telefonoProveedor" type="string">
+            <column name="Telefono_Proveedor" length="9" not-null="true" />
+        </property>
+        <property name="direccionProveedor" type="string">
+            <column name="Direccion_Proveedor" length="100" not-null="true" />
+        </property>
+        <property name="correoProveedor" type="string">
+            <column name="Correo_Proveedor" length="50" not-null="true" />
+        </property>
+        <property name="estadoProveedor" type="boolean">
+            <column name="Estado_Proveedor" not-null="true" />
+        </property>
+        <set name="compras" table="Compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Proveedor" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Compra" />
+        </set>
+        <set name="productos" table="Producto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Proveedor" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Producto" />
+        </set>
+    </class>
+</hibernate-mapping>

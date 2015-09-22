@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.AreaTrabajo" table="Area_Trabajo" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idArea" type="java.lang.Integer">
+            <column name="ID_Area" />
+            <generator class="identity" />
+        </id>
+        <property name="nombreArea" type="string">
+            <column name="NombreArea" length="50" not-null="true" />
+        </property>
+        <property name="estadoArea" type="java.lang.Boolean">
+            <column name="estado_area" />
+        </property>
+        <set name="habitacioneses" table="Habitaciones" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Area" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Habitaciones" />
+        </set>
+        <set name="enfermeras" table="Enfermera" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Area" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Enfermera" />
+        </set>
+        <set name="cajeros" table="Cajero" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Area" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Cajero" />
+        </set>
+        <set name="empleadoLaboratorios" table="Empleado_Laboratorio" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Area" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.EmpleadoLaboratorio" />
+        </set>
+        <set name="medicos" table="Medico" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Area" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Medico" />
+        </set>
+    </class>
+</hibernate-mapping>

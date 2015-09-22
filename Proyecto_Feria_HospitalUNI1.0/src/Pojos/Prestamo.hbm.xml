@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Prestamo" table="Prestamo" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idPrestamo" type="java.lang.Integer">
+            <column name="ID_Prestamo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cajero" class="Pojos.Cajero" fetch="select">
+            <column name="ID_Cajero" not-null="true" />
+        </many-to-one>
+        <many-to-one name="empleadoLaboratorio" class="Pojos.EmpleadoLaboratorio" fetch="select">
+            <column name="ID_TrabajadorLaboratorio" not-null="true" />
+        </many-to-one>
+        <many-to-one name="medico" class="Pojos.Medico" fetch="select">
+            <column name="ID_Medico" not-null="true" />
+        </many-to-one>
+        <property name="prestamo" type="big_decimal">
+            <column name="Prestamo" precision="20" not-null="true" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="Fecha" length="10" not-null="true" />
+        </property>
+        <property name="estadoPrestamo" type="string">
+            <column name="Estado_Prestamo" length="12" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

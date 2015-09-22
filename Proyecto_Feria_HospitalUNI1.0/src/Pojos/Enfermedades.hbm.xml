@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Enfermedades" table="Enfermedades" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idEnfermedad" type="java.lang.Integer">
+            <column name="id_enfermedad" />
+            <generator class="identity" />
+        </id>
+        <property name="nombreEnfermedad" type="string">
+            <column name="nombre_enfermedad" length="300" not-null="true" />
+        </property>
+        <property name="fechaRegistro" type="date">
+            <column name="fecha_registro" length="10" not-null="true" />
+        </property>
+        <property name="enfermedadCronica" type="boolean">
+            <column name="enfermedad_cronica" not-null="true" />
+        </property>
+        <set name="expedientePacientes" table="ExpedientePaciente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_enfermedades" />
+            </key>
+            <one-to-many class="Pojos.ExpedientePaciente" />
+        </set>
+    </class>
+</hibernate-mapping>

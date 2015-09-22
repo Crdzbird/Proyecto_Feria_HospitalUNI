@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 19, 2015 12:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Compra" table="Compra" catalog="BaseDatosHospitalUNI" optimistic-lock="version">
+        <id name="idCompra" type="java.lang.Integer">
+            <column name="ID_Compra" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="empleadoLaboratorio" class="Pojos.EmpleadoLaboratorio" fetch="select">
+            <column name="ID_EmpleadoLaboratorio" not-null="true" />
+        </many-to-one>
+        <many-to-one name="proveedor" class="Pojos.Proveedor" fetch="select">
+            <column name="ID_Proveedor" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoCambio" class="Pojos.TipoCambio" fetch="select">
+            <column name="ID_Tipo_Cambio" not-null="true" />
+        </many-to-one>
+        <property name="fechaCompra" type="timestamp">
+            <column name="Fecha_Compra" length="19" not-null="true" />
+        </property>
+        <property name="tipoMoneda" type="string">
+            <column name="Tipo_Moneda" length="10" not-null="true" />
+        </property>
+        <property name="modoCompra" type="string">
+            <column name="Modo_Compra" length="10" not-null="true" />
+        </property>
+        <set name="detalleCompras" table="Detalle_Compra" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_Compra" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.DetalleCompra" />
+        </set>
+    </class>
+</hibernate-mapping>

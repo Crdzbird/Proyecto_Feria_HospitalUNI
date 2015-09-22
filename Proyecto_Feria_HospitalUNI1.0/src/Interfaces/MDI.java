@@ -5,6 +5,9 @@
  */
 package Interfaces;
 
+import ConexionHibernate.NewHibernateUtil;
+import ConexionUsuario.AtributosUsuarioConexion;
+import LoginSistema.Login_Hospital;
 import ValidacionImagenes.ImagenFondoDesktop;
 import com.javaswingcomponents.accordion.JSCAccordion;
 import com.javaswingcomponents.accordion.TabOrientation;
@@ -13,10 +16,13 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.hibernate.SessionFactory;
@@ -27,7 +33,6 @@ import org.hibernate.SessionFactory;
  */
 public class MDI extends javax.swing.JFrame {
 
-    //JDesktopPane Escritorio = new ImagenFondo();
     private static SessionFactory sf;
     GraphicsDevice grafica = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
     JSCAccordion accordion = new JSCAccordion();
@@ -38,19 +43,25 @@ public class MDI extends javax.swing.JFrame {
     JPanel panelAdministrador = new JPanel();
     JPanel panelCajero = new JPanel();
     JPanel panelInformacionGeneral = new JPanel();
-    JPanel opaquePanel = new JPanel();
+    JButton btnSalir = new JButton();
     boolean pantallacompleta = false;
+    boolean estadoConexion = true;
     Hora h;
-    int IDCajero;
+    String dirWeb = "www.google.com";
+    int puerto = 80;
+    int IDUsuario;
+    int opcion;
     public boolean Abierto = false;
 
     public MDI(SessionFactory sf) {
         initComponents();
-        MDI.sf = sf;
         setLocationRelativeTo(null);
         setExtendedState(MAXIMIZED_BOTH);
+        this.Usuario.setText(AtributosUsuarioConexion.getUser());
+        this.sf = sf;
         this.jPanel3.setLayout(new BorderLayout());
         this.jPanel3.add(MenuAcordion(), BorderLayout.CENTER);
+        this.jPanel3.add(AgregarBotonSalir(), BorderLayout.PAGE_END);
         this.jDesktopPane1.setBorder(new ImagenFondoDesktop());
         this.add(BarraEstado);
     }
@@ -147,70 +158,159 @@ public class MDI extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        int opcion = JOptionPane.showConfirmDialog(this, "Esta seguro que desea salir", "Advertencia", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        opcion = JOptionPane.showConfirmDialog(this, "Esta seguro que desea salir", "Advertencia", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
         if (opcion == 0) {
-            System.exit(0);
+            try {
+                abrirLogin();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "El Programa ya ha sido ejecutado", "Informacion del Sistema", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_formWindowClosing
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         new Hora().start();
+        new VerificacionInternet().start();
     }//GEN-LAST:event_formWindowOpened
+
+    public void abrirLogin() throws IOException {
+        NewHibernateUtil.cerrarSessionFactory();
+        new Login_Hospital().setVisible(true);
+        this.dispose();
+    }
 
     public void pasarGarbageCollector() {
         Runtime garbage = Runtime.getRuntime();
         garbage.gc();
     }
 
+    private Component AgregarBotonSalir() {
+        btnSalir.setText("Salir del Sistema");
+        btnSalir.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                opcion = JOptionPane.showConfirmDialog(null, "Esta seguro que desea salir", "Advertencia", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (opcion == 0) {
+                    try {
+                        abrirLogin();
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(null, "El Programa ya ha sido ejecutado", "Informacion del Sistema", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+        return btnSalir;
+    }
+
     private Component MenuAcordion() {
         accordion.setTabOrientation(TabOrientation.VERTICAL);
-        agregarTabs(accordion);
+        agregarTabInformacionClinica(accordion);
         add(accordion);
         return accordion;
     }
 
-    private void agregarTabMedicos(){
-        
+    private void agregarTabMedicos(JSCAccordion accordion) {
+        transparentPanel.setOpaque(true);
+        transparentPanel.setBackground(Color.CYAN);
+
+        accordion.addTab("Verificacion de Citas y Consultas", transparentPanel);
+        accordion.addTab("Verificacion de Especialidades", transparentPanel);
+        accordion.addTab("Actualizar Informacion General de " + AtributosUsuarioConexion.getUser(), transparentPanel);
+        accordion.addTab("Horarios de Trabajo", transparentPanel);
+        accordion.addTab("Obtencion de la Aplicacion Movil", transparentPanel);
     }
-    
-    private void agregarTabPacientes(){
-        
+
+    private void agregarTabPacientes(JSCAccordion accordion) {
+        transparentPanel.setOpaque(true);
+        transparentPanel.setBackground(Color.CYAN);
+
+        accordion.addTab("Verificacion de Citas y Consultas", transparentPanel);
+        accordion.addTab("Informacion General de " + AtributosUsuarioConexion.getUser(), transparentPanel);
+        accordion.addTab("Actualizar Informacion General ", transparentPanel);
+        accordion.addTab("Horarios de Trabajo", transparentPanel);
+        accordion.addTab("Obtencion de la Aplicacion Movil", transparentPanel);
     }
-    
-    private void agregarTabOpcionesGenerales(){
-        
+
+    private void agregarTabOpcionesGenerales(JSCAccordion accordion) {
+        transparentPanel.setOpaque(true);
+        transparentPanel.setBackground(Color.CYAN);
+
+        accordion.addTab("Verificacion de Citas y Consultas", transparentPanel);
+        accordion.addTab("Verificacion de Especialidades", transparentPanel);
+        accordion.addTab("Actualizar Informacion General ", transparentPanel);
+        accordion.addTab("Horarios de Trabajo", transparentPanel);
+        accordion.addTab("Obtencion de la Aplicacion Movil", transparentPanel);
     }
-    
-    private void agregarTabInformacionClinica(){
-        
+
+    private void agregarTabInformacionClinica(JSCAccordion accordion) {
+        transparentPanel.setOpaque(true);
+        transparentPanel.setBackground(Color.CYAN);
+
+        accordion.addTab("Datos Generales", transparentPanel);
+        accordion.addTab("Contactenos", transparentPanel);
+        accordion.addTab("Registro Nuevo", transparentPanel);
+        accordion.addTab("Horarios de Trabajo", transparentPanel);
+        accordion.addTab("Obtencion de la Aplicacion Movil", transparentPanel);
     }
-    
-    private void agregarTabAdministrador(){
-        
+
+    private void agregarTabAdministrador(JSCAccordion accordion) {
+        transparentPanel.setOpaque(true);
+        transparentPanel.setBackground(Color.CYAN);
+
+        accordion.addTab("Datos Generales de " + AtributosUsuarioConexion.getUser(), transparentPanel);
+        accordion.addTab("Administrar Medicos", transparentPanel);
+        accordion.addTab("Administrar Enfermeras", transparentPanel);
+        accordion.addTab("Administrar Pacientes", transparentPanel);
+        accordion.addTab("Administrar Inventario", transparentPanel);
+        accordion.addTab("Administrar Laboratorio Interno", transparentPanel);
     }
-    
-    private void agregarTabCajero(){
-        
+
+    private void agregarTabCajero(JSCAccordion accordion) {
+
     }
-    
-    private void agregarTabROOT(){
-        
+
+    private void agregarTabROOT(JSCAccordion accordion) {
+        transparentPanel.setOpaque(true);
+        transparentPanel.setBackground(Color.CYAN);
+
+        accordion.addTab("Administrar Usuarios", transparentPanel);
+        accordion.addTab("Administrar Medicos", transparentPanel);
+        accordion.addTab("Administrar Enfermeras", transparentPanel);
+        accordion.addTab("Administrar Pacientes", transparentPanel);
+        accordion.addTab("Administrar Inventario", transparentPanel);
+        accordion.addTab("Administrar Laboratorio Interno", transparentPanel);
     }
-    
+
     private void agregarTabs(JSCAccordion accordion) {
 
         transparentPanel.setOpaque(true);
-        transparentPanel.setBackground(Color.GRAY);
+        transparentPanel.setBackground(Color.CYAN);
 
-        opaquePanel.setOpaque(true);
-        opaquePanel.setBackground(Color.GRAY);
+        accordion.addTab("Medicos", transparentPanel);
+        accordion.addTab("Pacientes", transparentPanel);
+        accordion.addTab("Informacion del Hospital", transparentPanel);
+        accordion.addTab("Configuraciones", transparentPanel);
+        accordion.addTab("Analisis Clinico", transparentPanel);
+    }
 
-        accordion.addTab("Medicos", opaquePanel);
-        accordion.addTab("Pacientes", opaquePanel);
-        accordion.addTab("Informacion del Hospital", opaquePanel);
-        accordion.addTab("Configuraciones", opaquePanel);
-        accordion.addTab("Analisis Clinico", opaquePanel);
+    class VerificacionInternet extends Thread {
+
+        public void run() {
+            while (true) {
+                try {
+                    Socket s = new Socket(dirWeb, puerto);
+                    if (s.isConnected()) {
+                        estadoConexion = true;
+                    } else {
+                        estadoConexion = false;
+                    }
+                } catch (Exception ex) {
+
+                }
+            }
+        }
     }
 
     class Hora extends Thread {
@@ -228,7 +328,6 @@ public class MDI extends javax.swing.JFrame {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
-                Logger.getLogger(MDI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -256,6 +355,7 @@ public class MDI extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MDI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

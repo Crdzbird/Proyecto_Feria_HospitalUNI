@@ -6,14 +6,20 @@
 package LoginSistema;
 
 import Captcha.IngresarCaptcha;
-import Conexion.HibernateUtil;
+import ConexionHibernate.NewHibernateUtil;
+import ConexionUsuario.AtributosUsuarioConexion;
 import Interfaces.MDI;
+import Medico.HoraMedicoTrabajo;
 import Seguridad.EnviarCorreo;
 import Validaciones.GhostText;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -27,13 +33,14 @@ import org.hibernate.SessionFactory;
 public class Login_Hospital extends javax.swing.JFrame {
 
     EnviarCorreo enviarCorreo = new EnviarCorreo();
-
+    private static ServerSocket SERVER_SOCKET;
     int x = 0, intentos = 0;
     Key key = new Key();
     private static SessionFactory sf;
 
-    public Login_Hospital() {
+    public Login_Hospital() throws IOException {
         initComponents();
+        SERVER_SOCKET = new ServerSocket(1334);
         new GhostText(txtNombre, "Nombre de Usuario");
         new GhostText(txtPassword, "Clave del Usuario");
         this.lblIdenti.setVisible(false);
@@ -338,17 +345,25 @@ public class Login_Hospital extends javax.swing.JFrame {
             return;
         }
         if ((txtNombre.getText().equals("root") && txtPassword.getText().trim().equals("lacb2208")) && cmbUsuario.getSelectedIndex() == 0) {
-            new IngresarCaptcha(sf).setVisible(true);
+            AtributosUsuarioConexion.setUser(txtNombre.getText());
+            AtributosUsuarioConexion.setPass(txtPassword.getText());
+
+            new IngresarCaptcha().setVisible(true);
             this.dispose();
         } else {
-            sf = HibernateUtil.conexion(lblIdenti.getText() + txtNombre.getText(), txtPassword.getText(), "3306", "localhost");
+            sf = NewHibernateUtil.conexion(lblIdenti.getText() + txtNombre.getText(), txtPassword.getText(), "3306", "localhost");
             if (sf != null) {
+                AtributosUsuarioConexion.setUser(txtNombre.getText());
+                AtributosUsuarioConexion.setPass(txtPassword.getText());
+
+                if (lblIdenti.getText().equals("me-")) {
+                    new HoraMedicoTrabajo().setVisible(true);
+                }
                 new MDI(sf).setVisible(true);
-                Cerrar();
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Revise su usuario y contraseña", "error en la conexion", JOptionPane.ERROR_MESSAGE);
             }
-
         }
     }
 
@@ -365,21 +380,22 @@ public class Login_Hospital extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login_Hospital.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login_Hospital.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login_Hospital.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login_Hospital.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "El Programa ya ha sido ejecutado", "Informacion del Sistema", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
+
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login_Hospital().setVisible(true);
+                try {
+                    new Login_Hospital().setVisible(true);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "El Programa ya ha sido ejecutado", "Informacion del Sistema", JOptionPane.ERROR_MESSAGE);
+                    System.exit(0);
+                }
             }
         });
     }

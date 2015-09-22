@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Conexion;
+package ConexionUsuario;
 
 /**
  *
- * @author Ing. Donaldo
+ * @author Crdzbird
  */
-public class Conexion {
+public class AtributosUsuarioConexion {
 
     private static String User, Pass;
 
@@ -18,7 +18,7 @@ public class Conexion {
     }
 
     public static void setUser(String User) {
-        Conexion.User = User;
+        AtributosUsuarioConexion.User = User;
     }
 
     public static String getPass() {
@@ -26,7 +26,7 @@ public class Conexion {
     }
 
     public static void setPass(String Pass) {
-        Conexion.Pass = Pass;
+        AtributosUsuarioConexion.Pass = Pass;
     }
 
 }
