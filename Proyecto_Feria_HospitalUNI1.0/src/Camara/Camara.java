@@ -5,7 +5,6 @@
  */
 package Camara;
 
-import ValidacionImagenes.procesamientoImagenes;
 import com.googlecode.javacv.FrameGrabber;
 import com.googlecode.javacv.OpenCVFrameGrabber;
 import com.googlecode.javacv.VideoInputFrameGrabber;
@@ -14,7 +13,6 @@ import static com.googlecode.javacv.cpp.opencv_core.cvFlip;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
