@@ -139,6 +139,7 @@ public class Login_Hospital extends javax.swing.JFrame {
 
         btnEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/accept.png"))); // NOI18N
         btnEnter.setToolTipText("Aceptar");
+        btnEnter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEnter.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnEnterMouseClicked(evt);
@@ -147,6 +148,7 @@ public class Login_Hospital extends javax.swing.JFrame {
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cancel.png"))); // NOI18N
         btnSalir.setToolTipText("Salir");
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSalirMouseClicked(evt);
