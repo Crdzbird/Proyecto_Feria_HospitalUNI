@@ -64,6 +64,7 @@ public class MDI extends javax.swing.JFrame {
         this.jPanel3.add(AgregarBotonSalir(), BorderLayout.PAGE_END);
         this.jDesktopPane1.setBorder(new ImagenFondoDesktop());
         this.add(BarraEstado);
+       
     }
 
     /**
@@ -185,6 +186,10 @@ public class MDI extends javax.swing.JFrame {
         garbage.gc();
     }
 
+    
+    public void CerrarMDI(){
+        this.dispose();
+    }
     private Component AgregarBotonSalir() {
         btnSalir.setText("Salir del Sistema");
         btnSalir.addActionListener(new ActionListener() {
@@ -195,6 +200,7 @@ public class MDI extends javax.swing.JFrame {
                 if (opcion == 0) {
                     try {
                         abrirLogin();
+                        CerrarMDI();
                     } catch (IOException ex) {
                         JOptionPane.showMessageDialog(null, "El Programa ya ha sido ejecutado", "Informacion del Sistema", JOptionPane.ERROR_MESSAGE);
                     }

@@ -33,14 +33,12 @@ import org.hibernate.SessionFactory;
 public class Login_Hospital extends javax.swing.JFrame {
 
     EnviarCorreo enviarCorreo = new EnviarCorreo();
-    private static ServerSocket SERVER_SOCKET;
+    
     int x = 0, intentos = 0;
     Key key = new Key();
-    private static SessionFactory sf;
-
+    public static SessionFactory sf;
     public Login_Hospital() throws IOException {
         initComponents();
-        SERVER_SOCKET = new ServerSocket(1334);
         new GhostText(txtNombre, "Nombre de Usuario");
         new GhostText(txtPassword, "Clave del Usuario");
         this.lblIdenti.setVisible(false);
@@ -383,7 +381,7 @@ public class Login_Hospital extends javax.swing.JFrame {
                 }
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "El Programa ya ha sido ejecutado", "Informacion del Sistema", JOptionPane.ERROR_MESSAGE);
+            
             System.exit(0);
         }
 
